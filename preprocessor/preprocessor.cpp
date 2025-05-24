@@ -1,5 +1,7 @@
 #include "everfit.h"
 
+#include <argparse/argparse.hpp>
+
 #include <cstring>
 #include <everfit.h>
 #include <iostream>
@@ -7,8 +9,29 @@
 
 #define INLINE_CODE(...) #__VA_ARGS__
 
-int main()
+int main(int argc, char** argv)
 {
+    std::vector<std::string> cpp_files;
+    argparse::ArgumentParser args("argparse");
+    args.add_argument("--cpp")
+        .help("The input cpp file(s) to process.")
+        .nargs(argparse::nargs_pattern::at_least_one)
+        .store_into(cpp_files);
+    args.add_argument("-i")
+        .help("Inplace edit <file>s, if specified.")
+        .nargs(argparse::nargs_pattern::at_least_one)
+        .store_into(cpp_files);
+
+    // try to parse the input args
+    try {
+        args.parse_args(argc, argv);
+        printf("args ok");
+    } catch (const std::exception& err) {
+        std::cerr << err.what() << std::endl;
+        std::cerr << args;
+        return 1;
+    }
+
     const char* input = INLINE_CODE(everfit !test { () => { 1 } });
     int intput_len = strlen(input);
     int output_len = intput_len * 2;

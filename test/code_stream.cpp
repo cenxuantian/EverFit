@@ -172,6 +172,6 @@ int main()
     code_stream_test();
     write_stream_test();
 
-    printf("Test succeed!");
+    printf("Test succeed!\n");
     return 0;
 }

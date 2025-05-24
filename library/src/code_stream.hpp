@@ -4,7 +4,7 @@
 #include <string>
 #include <unordered_set>
 
-#include "../include/defines.h"
+#include "../include/everfit.h"
 
 namespace everfit {
 
@@ -198,6 +198,20 @@ public:
         , capacity_(0)
     {
     }
+
+    /// @brief Use this constructor to craete a WriteStream throw an existing
+    /// buffer.
+    /// @param buf !!! IMPORTANT !!! currently we only support the buffer that
+    /// allocated by malloc or realloc, other allocating methods are not
+    // supported yet.
+    /// @param capacity the capacity of the buffer
+    WriteStream(void* buf, size_t capacity)
+        : buf_(reinterpret_cast<char*>(buf))
+        , size_(0)
+        , capacity_(capacity)
+    {
+    }
+
     ~WriteStream()
     {
         if (buf_) {

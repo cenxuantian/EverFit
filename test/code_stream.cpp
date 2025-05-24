@@ -1,7 +1,6 @@
 #include "test_common.hpp"
 #include <assert.h>
 #include <code_stream.hpp>
-#include <vector>
 
 using namespace everfit;
 #define INLINE_CODE(...) #__VA_ARGS__

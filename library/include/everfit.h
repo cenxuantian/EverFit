@@ -41,23 +41,27 @@
 #define __EVERFIT_EVERFIT_H__
 
 #include "defines.h"
+#include "error.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+EVERFIT_ERROR_T everfit_pipeline_create(void** pipeline, const everfit_pipeline_options* options);
+EVERFIT_ERROR_T everfit_pipeline_destroy(void** pipeline);
+
 /// @brief This function preprocess the `input` string and out put to the
 /// `output`
 /// @param lang The language type
 /// @param input input string
-/// @param output output str, this function will reallocate the buffer
+/// @param output output str, if no enough space, will return EVERFIT_BUF_TOO_SMALL
 /// @return error code
-EVERFIT_ERROR_T everfit_preprocess(int lang, const char* input, char* output);
-
-/// @brief This function translate the error_code into readable string
-/// @param error_code input error code
-/// @param output output string, this function will reallocate the buffer
-void everfit_error_msg(int error_code, char* output);
+EVERFIT_ERROR_T everfit_preprocess(void* pipeline,
+                                   int lang,
+                                   const char* input,
+                                   int* input_size,
+                                   char* output,
+                                   int* output_size);
 
 #ifdef __cplusplus
 }

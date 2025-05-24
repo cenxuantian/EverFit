@@ -10,7 +10,12 @@ UseCRLF: false
 Language: Cpp
 PointerAlignment: Left
 DisableFormat: false
-AlignAfterOpenBracket: true
 SortIncludes: true
 IncludeBlocks: Preserve
+AlignAfterOpenBracket: Align
+AllowAllParametersOfDeclarationOnNextLine: false
+BinPackParameters: false
+BinPackArguments: false
+ColumnLimit: 100
+PenaltyBreakBeforeFirstCallParameter: 1
 ---

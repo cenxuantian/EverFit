@@ -1,9 +1,51 @@
 #include "../include/everfit.h"
+#include "code_stream.hpp"
+#include "pipeline.hpp"
 
-int everfit_preprocess([[maybe_unused]] int lang, [[maybe_unused]] const char* input,
-                       [[maybe_unused]] char* output)
+EVERFIT_ERROR_T everfit_pipeline_create(void** pipeline, const everfit_pipeline_options* options)
+{
+    // auto& pipe = reinterpret_cast<everfit::Pipeline**>(pipeline);
+    auto pipe = new everfit::Pipeline(*options);
+    EVERFIT_ASSERT_AND_RETURN(pipe);
+    *reinterpret_cast<everfit::Pipeline**>(pipeline) = pipe;
+    return EVERFIT_ERROR_SUCCEED;
+}
+
+EVERFIT_ERROR_T everfit_pipeline_destroy(void** pipeline)
+{
+    auto p_pipe = *reinterpret_cast<everfit::Pipeline**>(pipeline);
+    if (p_pipe) {
+        delete p_pipe;
+        *pipeline = nullptr;
+    }
+    return EVERFIT_ERROR_SUCCEED;
+};
+
+EVERFIT_ERROR_T everfit_preprocess([[maybe_unused]] void* pipeline,
+                                   [[maybe_unused]] int lang,
+                                   [[maybe_unused]] const char* input,
+                                   [[maybe_unused]] int* input_size,
+                                   [[maybe_unused]] char* output,
+                                   [[maybe_unused]] int* output_size)
 {
     return EVERFIT_ERROR_SUCCEED;
 }
 
-void everfit_error_msg([[maybe_unused]] int error_code, [[maybe_unused]] char* output) { }
+EVERFIT_ERROR_T everfit_error_msg([[maybe_unused]] int error_code, char* output, int* output_size)
+{
+    if (!output || !*output || !output_size || !*output_size) {
+        return EVERFIT_BUF_TOO_SMALL;
+    }
+    auto copy_text = [&](const char* text) {
+        auto text_len = strlen(text);
+        if ((*output_size) <= static_cast<int>(text_len)) {
+            return EVERFIT_BUF_TOO_SMALL;
+        }
+        if (!memcpy(output, text, text_len)) {
+            return EVERFIT_SYSTEM_ERROR;
+        }
+        output[text_len] = 0;
+        return EVERFIT_ERROR_SUCCEED;
+    };
+    return copy_text("[needs to be implemented]");
+}

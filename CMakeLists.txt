@@ -22,6 +22,8 @@ if(${BUILD_PREPROCESSOR})
     add_subdirectory (preprocessor)
 endif()
 if(${BUILD_TESTS})
+    # enable the ctest
+    enable_testing()
     # if build tests, preprocessor is needed
     if (NOT ${BUILD_PREPROCESSOR})
         add_subdirectory (preprocessor)

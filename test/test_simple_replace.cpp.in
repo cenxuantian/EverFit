@@ -1,0 +1,9 @@
+#include <iostream>
+
+everfit_macro! return_val (){
+    1
+}
+
+int main(){
+    return return_val!;
+}

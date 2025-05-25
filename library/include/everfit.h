@@ -80,7 +80,7 @@ EVERFIT_ERROR_T everfit_pipeline_destroy(void** pipeline);
 /// @param output output str, if no enough space, will return EVERFIT_BUF_TOO_SMALL
 /// @return error code
 EVERFIT_ERROR_T everfit_preprocess(void* pipeline,
-                                   int lang,
+                                   everfit_pipeline_process_options* options,
                                    const char* input,
                                    int* input_size,
                                    char* output,

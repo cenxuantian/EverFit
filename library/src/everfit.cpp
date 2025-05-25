@@ -46,7 +46,7 @@ EVERFIT_ERROR_T everfit_pipeline_destroy(void** pipeline)
 };
 
 EVERFIT_ERROR_T everfit_preprocess([[maybe_unused]] void* pipeline,
-                                   [[maybe_unused]] int lang,
+                                   [[maybe_unused]] everfit_pipeline_process_options* options,
                                    [[maybe_unused]] const char* input,
                                    [[maybe_unused]] int* input_size,
                                    [[maybe_unused]] char* output,

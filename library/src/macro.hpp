@@ -23,19 +23,65 @@
  */
 
 #pragma once
-#include "macro.hpp"
-#include "processor.hpp"
+#include "code_stream.hpp"
+#include "common.hpp"
+#include <everfit.h>
+#include <string>
+#include <vector>
 
 namespace everfit {
 
-class CppProcessor : public Processor {
+class Macro {
 public:
-    virtual ~CppProcessor() { };
-    virtual EVERFIT_ERROR_T process([[maybe_unused]] CodeStream const& in_stream,
-                                    [[maybe_unused]] WriteStream& out_stream) override
+    enum class ArgType {
+        const_expr,
+        runtime_expr,
+    };
+    enum class Narg {
+        simgle,
+        any,
+        at_least_once,
+    };
+    struct Arg {
+        std::string name;
+        ArgType type;
+        Narg narg;
+        bool operator==(Arg const& other) const
+        {
+            return name == other.name && type == other.type && narg == other.narg;
+        }
+    };
+
+    std::string name;
+    std::vector<Arg> args;
+    std::string body;
+
+public:
+    Macro()
+        : name()
+        , args()
+        , body()
     {
-        return EVERFIT_ERROR_SUCCEED;
+    }
+
+    Macro(std::string const& in_name, std::vector<Arg> const& in_args, std::string const& in_body)
+        : name(in_name)
+        , args(in_args)
+        , body(in_body)
+    {
+    }
+
+    Macro([[maybe_unused]] CodeStream const& code_stream)
+        : name()
+        , args()
+        , body()
+    {
+    }
+
+    bool operator==(Macro const& other) const
+    {
+        return name == other.name && args == other.args && body == other.body;
     }
 };
 
-}
+} // namespace everfit

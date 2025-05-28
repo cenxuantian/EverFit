@@ -21,4 +21,5 @@ endfunction()
 
 
 add_test_from_src(test_code_stream code_stream.cpp)
+add_test_from_src(test_macro_define macro_define.cpp)
 add_parse_test(test_simple_replace)

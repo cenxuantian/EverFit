@@ -56,6 +56,9 @@ public: // functions
     {
     }
 
+    // copy/move constructor and oprator= are default
+    // this class is unsafe if it's used outside of this library
+
     bool operator==(CodeStream const& other) const
     {
         return size_ == other.size_ && strncmp(buf_, other.buf_, size_) == 0;

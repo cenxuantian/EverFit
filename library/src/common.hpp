@@ -23,19 +23,9 @@
  */
 
 #pragma once
-#include "macro.hpp"
-#include "processor.hpp"
 
-namespace everfit {
+namespace evefit {
+namespace common {
 
-class CppProcessor : public Processor {
-public:
-    virtual ~CppProcessor() { };
-    virtual EVERFIT_ERROR_T process([[maybe_unused]] CodeStream const& in_stream,
-                                    [[maybe_unused]] WriteStream& out_stream) override
-    {
-        return EVERFIT_ERROR_SUCCEED;
-    }
-};
-
+}
 }

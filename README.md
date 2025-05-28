@@ -1,2 +1,2 @@
 # EverFit
-a macro that fits a lot of languages
+A macro system that fits a lot of languages

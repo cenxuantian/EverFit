@@ -77,7 +77,7 @@ EVERFIT_ERROR_T everfit_pipeline_destroy(void** pipeline);
 /// `output`
 /// @param lang The language type
 /// @param input input string
-/// @param output output str, if no enough space, will return EVERFIT_BUF_TOO_SMALL
+/// @param output output str, if no enough space, will return EVERFIT_ERROR_BUF_TOO_SMALL
 /// @return error code
 EVERFIT_ERROR_T everfit_preprocess(void* pipeline,
                                    everfit_pipeline_process_options* options,

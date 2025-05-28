@@ -58,15 +58,15 @@ EVERFIT_ERROR_T everfit_preprocess([[maybe_unused]] void* pipeline,
 EVERFIT_ERROR_T everfit_error_msg([[maybe_unused]] int error_code, char* output, int* output_size)
 {
     if (!output || !*output || !output_size || !*output_size) {
-        return EVERFIT_BUF_TOO_SMALL;
+        return EVERFIT_ERROR_BUF_TOO_SMALL;
     }
     auto copy_text = [&](const char* text) {
         auto text_len = strlen(text);
         if ((*output_size) <= static_cast<int>(text_len)) {
-            return EVERFIT_BUF_TOO_SMALL;
+            return EVERFIT_ERROR_BUF_TOO_SMALL;
         }
         if (!memcpy(output, text, text_len)) {
-            return EVERFIT_SYSTEM_ERROR;
+            return EVERFIT_ERROR_SYSTEM_ERR;
         }
         output[text_len] = 0;
         return EVERFIT_ERROR_SUCCEED;

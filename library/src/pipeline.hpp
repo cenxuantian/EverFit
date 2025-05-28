@@ -26,6 +26,7 @@
 
 #include "../include/everfit.h"
 #include "code_stream.hpp"
+#include "processor_factory.hpp"
 
 namespace everfit {
 
@@ -41,11 +42,16 @@ public:
 
     ~Pipeline() { }
 
-    EVERFIT_ERROR_T process([[maybe_unused]] everfit_pipeline_process_options const& process_option,
-                            [[maybe_unused]] CodeStream const& in_stream,
-                            [[maybe_unused]] WriteStream const& out_stream)
+    EVERFIT_ERROR_T
+    process([[maybe_unused]] everfit_pipeline_process_options const& process_options,
+            [[maybe_unused]] CodeStream const& in_stream,
+            [[maybe_unused]] WriteStream& out_stream)
     {
-
+        ProcessorFactory fac;
+        auto [ret, processor] = fac.create_processor(process_options);
+        EVERFIT_RETURN_ON_ERROR(ret); // check if return an error
+        EVERFIT_ASSERT_AND_RETURN(processor.get()); // check if processor is a nullptr
+        EVERFIT_RETURN_ON_ERROR(processor->process(in_stream, out_stream));
         return EVERFIT_ERROR_SUCCEED;
     }
 };

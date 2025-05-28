@@ -30,10 +30,15 @@ extern "C" {
 #endif
 
 // language types
+#define EVERFIT_LANG_UNKNOWN 0
 #define EVERFIT_LANG_C_CPP 1
 
-struct everfit_pipeline_options { };
-struct everfit_pipeline_process_options { };
+typedef struct {
+} everfit_pipeline_options;
+
+typedef struct {
+    int lang;
+} everfit_pipeline_process_options;
 
 #ifdef __cplusplus
 }
